@@ -1,0 +1,25 @@
+{
+  "name": "feynman-platform-backend",
+  "version": "1.0.0",
+  "description": "《大前端与AI实战》第三次课：JWT 认证与知识点 CRUD API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "express",
+    "feynman",
+    "backend"
+  ],
+  "author": "YourName",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.1"
+  }
+}

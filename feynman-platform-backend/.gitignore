@@ -1,0 +1,16 @@
+# 依赖包目录：体积大且可由 npm install 重新生成，不需要提交到 Git
+node_modules
+
+# 数据库连接地址与密码只保存在本地
+.env
+.env.*
+!.env.example
+
+# 日志与临时文件
+*.log
+npm-debug.log*
+
+# 编辑器/系统产生的文件
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>账号 · 费曼学习平台</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card">
+    <p class="brand">费曼学习平台</p>
+    <div class="switcher" role="group" aria-label="选择注册或登录">
+      <button id="register-mode" type="button" aria-pressed="true">注册</button>
+      <button id="login-mode" type="button" aria-pressed="false">登录</button>
+    </div>
+    <h1 id="form-title">创建你的账号</h1>
+    <p id="form-intro" class="intro">填写信息，开始记录你的学习。</p>
+    <form id="account-form">
+      <fieldset id="account-fields">
+        <legend class="visually-hidden">账号信息</legend>
+        <div id="username-field">
+          <label for="username">用户名</label>
+          <input id="username" name="username" type="text" autocomplete="username"
+            required maxlength="50" placeholder="例如：feynman_student" />
+        </div>
+        <label for="email">邮箱</label>
+        <input id="email" name="email" type="email" autocomplete="email"
+          required maxlength="254" placeholder="you@example.com" />
+        <label for="password">密码</label>
+        <input id="password" name="password" type="password" autocomplete="new-password"
+          required minlength="8" aria-describedby="password-help" />
+        <p id="password-help" class="hint">至少 8 个字符。</p>
+        <div id="confirmation-field">
+          <label for="confirm-password">确认密码</label>
+          <input id="confirm-password" name="confirmPassword" type="password"
+            autocomplete="new-password" required minlength="8" />
+        </div>
+      </fieldset>
+      <button id="submit-btn" class="primary" type="submit">注册账号</button>
+      <p id="account-message" class="message" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
