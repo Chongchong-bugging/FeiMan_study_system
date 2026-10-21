@@ -9,7 +9,7 @@ const User = require('../models/User');
 const KnowledgePoint = require('../models/KnowledgePoint');
 const app = require('../index');
 
-test('第三次课 API：注册、JWT 认证与知识点 CRUD', async t => {
+test('第五次课 API：跨域、注册、JWT 认证与知识点 CRUD', async t => {
   const users = [];
   const points = [];
   let databaseState = 1;
@@ -74,6 +74,20 @@ test('第三次课 API：注册、JWT 认证与知识点 CRUD', async t => {
   let pointId;
 
   try {
+    await t.test('允许前端来源的跨域预检请求', async () => {
+      const response = await fetch(`${base}/api/users/login`, {
+        method: 'OPTIONS',
+        headers: {
+          Origin: 'http://localhost:5173',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'content-type'
+        }
+      });
+      assert.equal(response.status, 204);
+      assert.equal(response.headers.get('access-control-allow-origin'), 'http://localhost:5173');
+      assert.match(response.headers.get('access-control-allow-methods'), /POST/);
+    });
+
     await t.test('注册自动登录、bcrypt 哈希和 5 小时 JWT', async () => {
       const response = await request('POST', '/api/users/register', account);
       assert.equal(response.status, 201);

@@ -1,28 +1,36 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
+import apiClient from '../api/axios.js';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState('success');
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    setMessage('');
     if (!username.trim()) {
-      setMessageType('error');
       setMessage('请输入用户名。');
       return;
     }
     if (new TextEncoder().encode(password).length > 72) {
-      setMessageType('error');
       setMessage('密码的 UTF-8 长度不能超过 72 字节。');
       return;
     }
-    setMessageType('success');
-    setMessage(`已获取 ${username.trim()} 的注册表单输入。下一次课将接入注册接口。`);
+    setSubmitting(true);
+    try {
+      await apiClient.post('/users/register', { username: username.trim(), email: email.trim(), password });
+      navigate('/login', { replace: true, state: { registered: true } });
+    } catch (error) {
+      setMessage(error.response?.data?.msg || '注册失败，请检查网络连接后重试。');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -43,8 +51,8 @@ function RegisterPage() {
             <label className="field-label" htmlFor="register-password">密码</label>
             <div className="input-wrap"><Icon name="lock" size={18} /><input id="register-password" type="password" autoComplete="new-password" placeholder="至少 8 个字符" minLength={8} aria-describedby="password-hint" value={password} onChange={(event) => { setPassword(event.target.value); setMessage(''); }} required /></div>
             <p className="field-hint" id="password-hint">至少 8 个字符，UTF-8 长度不超过 72 字节。</p>
-            <button className="button button-primary form-submit" type="submit">创建账号 <Icon name="arrow" size={18} /></button>
-            <p className={`form-message${messageType === 'error' ? ' error' : ''}`} role="status" aria-live="polite">{message}</p>
+            <button className="button button-primary form-submit" type="submit" disabled={submitting}>{submitting ? '注册中…' : '创建账号'} <Icon name="arrow" size={18} /></button>
+            <p className="form-message error" role="alert">{message}</p>
           </form>
           <p className="auth-switch">已经有账号？<Link to="/login">前往登录 <Icon name="arrow" size={15} /></Link></p>
         </section>
