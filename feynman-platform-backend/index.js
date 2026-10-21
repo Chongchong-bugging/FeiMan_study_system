@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 const dns = require('dns');
@@ -9,6 +10,7 @@ const User = require('./models/User');
 dns.setServers(['119.29.29.29', '223.5.5.5']);
 
 const app = express();
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
 
 // 第二次课的地址继续可用，方便原有客户端过渡。

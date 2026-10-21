@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 
 const concepts = [
-  { number: '01', icon: 'layers', title: '组件化思维', text: '把页面拆成可复用的积木，让每个部分只负责一件事。', tag: 'React' },
-  { number: '02', icon: 'target', title: '数据驱动界面', text: '数据发生变化，视图就跟着更新；不再手动寻找 DOM。', tag: 'useState' },
-  { number: '03', icon: 'book', title: '页面自由切换', text: '使用客户端路由，在一套应用里流畅地切换页面。', tag: 'Router' },
+  { number: '01', icon: 'layers', title: '连接后端 API', text: '使用 Axios 向真实接口发送请求，并处理成功和错误结果。', tag: 'Axios' },
+  { number: '02', icon: 'target', title: '共享登录状态', text: '通过 React Context 保存 Token，让页面之间共享认证状态。', tag: 'Context' },
+  { number: '03', icon: 'book', title: '保护学习主页', text: '未登录时自动跳转到登录页；刷新后继续保持登录。', tag: 'Router' },
 ];
 
 function ConceptCard({ number, icon, title, text, tag }) {
@@ -24,13 +23,9 @@ function DashboardPage() {
       <div className="page-eyebrow"><span className="eyebrow-line" />你的学习空间 <span className="eyebrow-separator">/</span> OVERVIEW</div>
       <section className="hero">
         <div className="hero-copy">
-          <span className="hero-badge"><Icon name="spark" size={14} /> 前端学习，从这里开始</span>
+          <span className="hero-badge"><Icon name="spark" size={14} /> 已登录 · 欢迎回来</span>
           <h1>把复杂的知识，<br /><em>讲得明明白白。</em></h1>
-          <p>费曼学习平台的第一步已经搭好。用组件组织内容，用状态记录输入，让每个想法都有清晰的落点。</p>
-          <div className="hero-actions">
-            <Link to="/register" className="button button-primary">创建学习账号 <Icon name="arrow" size={18} /></Link>
-            <Link to="/login" className="button button-light">已有账号？登录</Link>
-          </div>
+          <p>账号已经连接到后端。注册、登录和状态管理组成了完整流程，你的学习空间现在只对已登录用户开放。</p>
         </div>
         <div className="hero-art" aria-hidden="true">
           <div className="art-orbit art-orbit-one" />
@@ -49,8 +44,7 @@ function DashboardPage() {
 
       <section className="next-section" aria-labelledby="next-title">
         <div className="next-icon"><Icon name="check" size={24} /></div>
-        <div><span>你的下一步</span><h2 id="next-title">先创建账号页面，再让想法继续生长。</h2><p>本次展示的是前端界面；注册、登录与后端接口将在下一次课接通。</p></div>
-        <Link className="text-link" to="/register">查看注册表单 <Icon name="arrow" size={17} /></Link>
+        <div><span>你的下一步</span><h2 id="next-title">试着刷新页面，验证登录状态是否保留。</h2><p>也可以点击右上角退出登录，观察路由守卫如何保护学习主页。</p></div>
       </section>
     </div>
   );
